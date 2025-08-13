@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USAMEC - United Spiritual and Academic Mission for Educational Excellence</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary: #FF7A00;
+            --secondary: #800000;
+            --accent: #FFFFFF;
+            --neon-orange: #FF7A00;
+            --neon-maroon: #800000;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #1a1a1a;
+            --light-bg: #2c3e50;
+            --lighter-bg: #34495e;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+        }
+        
+        /* Animated Background */
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 122, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(128, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 122, 0, 0.05) 0%, transparent 50%),
+                linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+        
+        .cosmic-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255, 122, 0, 0.2), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(128, 0, 0, 0.2), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(44, 62, 80, 0.3), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255, 122, 0, 0.2), transparent),
+                radial-gradient(2px 2px at 160px 30px, rgba(128, 0, 0, 0.2), transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: cosmic-drift 20s linear infinite;
+        }
+        
+        @keyframes cosmic-drift {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-100px); }
+        }
+        
+        /* Futuristic Glass Cards */
+        .glass-card {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 122, 0, 0.3);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 20px rgba(255, 122, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+        
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 122, 0, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .glass-card:hover::before {
+            left: 100%;
+        }
+        
+        /* Enhanced Glow Effects */
+        .glow-orange {
+            box-shadow: 
+                0 0 20px rgba(255, 122, 0, 0.6),
+                0 0 40px rgba(255, 122, 0, 0.4),
+                0 0 60px rgba(255, 122, 0, 0.2);
+            animation: pulse-glow-orange 3s ease-in-out infinite alternate;
+        }
+        
+        .glow-maroon {
+            box-shadow: 
+                0 0 20px rgba(128, 0, 0, 0.6),
+                0 0 40px rgba(128, 0, 0, 0.4),
+                0 0 60px rgba(128, 0, 0, 0.2);
+            animation: pulse-glow-maroon 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulse-glow-orange {
+            0% { box-shadow: 0 0 20px rgba(255, 122, 0, 0.6), 0 0 40px rgba(255, 122, 0, 0.4), 0 0 60px rgba(255, 122, 0, 0.2); }
+            100% { box-shadow: 0 0 30px rgba(255, 122, 0, 0.8), 0 0 60px rgba(255, 122, 0, 0.6), 0 0 90px rgba(255, 122, 0, 0.4); }
+        }
+        
+        @keyframes pulse-glow-maroon {
+            0% { box-shadow: 0 0 20px rgba(128, 0, 0, 0.6), 0 0 40px rgba(128, 0, 0, 0.4), 0 0 60px rgba(128, 0, 0, 0.2); }
+            100% { box-shadow: 0 0 30px rgba(128, 0, 0, 0.8), 0 0 60px rgba(128, 0, 0, 0.6), 0 0 90px rgba(128, 0, 0, 0.4); }
+        }
+        
+        /* Futuristic Navigation */
+        .futuristic-nav {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid transparent;
+            border-image: linear-gradient(90deg, transparent, var(--neon-orange), var(--neon-maroon), transparent) 1;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            color: #ffffff !important;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-orange), var(--neon-maroon));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover {
+            color: var(--neon-orange) !important;
+        }
+        
+        .nav-link.active {
+            color: var(--neon-orange) !important;
+            text-shadow: 0 0 10px rgba(255, 122, 0, 0.8);
+        }
+        
+        /* Hero Section Enhancements */
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--neon-orange);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .particle:nth-child(odd) {
+            background: var(--neon-maroon);
+            animation-duration: 8s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        /* Enhanced Fade In Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+        
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+        
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Enhanced Timeline */
+        .timeline-marker {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--neon-orange), var(--neon-maroon));
+            position: relative;
+            z-index: 3;
+            box-shadow: 0 0 20px rgba(255, 122, 0, 0.8);
+        }
+        
+        .timeline-marker::before {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 122, 0, 0.2);
+            top: -10px;
+            left: -10px;
+            z-index: 1;
+            animation: pulse-ring 2s infinite;
+        }
+        
+        .timeline-marker::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 122, 0, 0.1);
+            top: -20px;
+            left: -20px;
+            z-index: 0;
+            animation: pulse-ring 2s infinite 0.5s;
+        }
+        
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(1.2); opacity: 0; }
+        }
+        
+        /* Enhanced Institution Cards */
+        .institution-card {
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+            transform-style: preserve-3d;
+        }
+        
+        .institution-card:hover {
+            transform: translateY(-20px) rotateX(5deg) rotateY(5deg) scale(1.05);
+            box-shadow: 
+                0 25px 50px rgba(255, 122, 0, 0.3),
+                0 0 50px rgba(255, 122, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .institution-card img {
+            transition: all 0.5s ease;
+        }
+        
+        .institution-card:hover img {
+            transform: scale(1.1);
+            filter: brightness(1.2) contrast(1.1);
+        }
+        
+        /* Alumni Achievements Section */
+        .achievement-item {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .achievement-item.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .achievement-dot {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-dot:hover {
+            transform: scale(1.2);
+        }
+        
+        /* Enhanced Map Pins */
+        .map-pin {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--neon-orange), var(--neon-maroon));
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 122, 0, 0.8);
+            transition: all 0.3s ease;
+        }
+        
+        .map-pin::before {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 122, 0, 0.3);
+            top: -10px;
+            left: -10px;
+            animation: pulse-ring 2s infinite;
+        }
+        
+        .map-pin:hover {
+            transform: scale(1.5);
+            box-shadow: 0 0 25px rgba(255, 122, 0, 1);
+        }
+        
+        /* Enhanced Gallery */
+        .gallery-item {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05) rotateZ(2deg);
+            box-shadow: 0 15px 30px rgba(255, 122, 0, 0.4);
+        }
+        
+        .gallery-overlay {
+            opacity: 0;
+            transition: all 0.4s ease;
+            background: linear-gradient(45deg, rgba(255, 122, 0, 0.8), rgba(128, 0, 0, 0.8));
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        /* Enhanced Buttons */
+        .futuristic-btn {
+            background: linear-gradient(45deg, var(--neon-orange), var(--neon-maroon));
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 122, 0, 0.4);
+        }
+        
+        .futuristic-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .futuristic-btn:hover::before {
+            left: 100%;
+        }
+        
+        .futuristic-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 122, 0, 0.6);
+        }
+        
+        /* Counter Animation Enhancement */
+        .counter {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            text-shadow: 0 0 20px rgba(255, 122, 0, 0.8);
+        /* 3D Roulette Wheel Styles */
+        .roulette-container {
+            perspective: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 500px;
+            position: relative;
+        }
+        
+        .roulette-wheel {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+        }
+        
+        .roulette-section {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .roulette-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .roulette-section:hover::before {
+            opacity: 1;
+        }
+        
+        .roulette-section:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 122, 0, 0.6);
+        }
+        
+        .section-content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .section-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        /* Institution Modal */
+        .institution-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .institution-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 122, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(255, 122, 0, 0.2);
+            transform: scale(0.8) translateY(50px);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .institution-modal.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 122, 0, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255, 122, 0, 0.4);
+            transform: scale(1.1);
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .modal-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .modal-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .modal-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+        
+        .modal-body {
+            margin-bottom: 2rem;
+        }
+        
+        .programs-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .program-item {
+            background: rgba(255, 122, 0, 0.1);
+            padding: 0.8rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 122, 0, 0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .program-item:hover {
+            background: rgba(255, 122, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .modal-btn {
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .modal-btn.primary {
+            background: linear-gradient(45deg, var(--primary), #ff9500);
+            color: white;
+        }
+        
+        .modal-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 122, 0, 0.3);
+        }
+        
+        .coming-soon {
+            background: rgba(128, 0, 0, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+            cursor: not-allowed;
+        }
+        
+        .coming-soon:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        @media (max-width: 768px) {
+            .roulette-wheel {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .section-icon {
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 0.8rem;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+            background: linear-gradient(45deg, var(--neon-orange), var(--neon-maroon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Form Enhancements */
+        .futuristic-input {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 122, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .futuristic-input:focus {
+            outline: none;
+            border-color: var(--neon-orange);
+            box-shadow: 0 0 20px rgba(255, 122, 0, 0.5);
+            background: rgba(255, 255, 255, 1);
+        }
+        
+        /* Responsive Enhancements */
+        @media (max-width: 768px) {
+            .leadership-cards {
+                flex-direction: column;
+            }
+            
+            .mission-vision {
+                flex-direction: column;
+            }
+            
+            .timeline-container {
+                overflow-x: auto;
+                padding-bottom: 20px;
+            }
+            
+            .institution-card:hover {
+                transform: translateY(-10px) scale(1.02);
+            }
+            
+            h1 {
+                font-size: 2.5rem !important;
+            }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--darker-bg);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--neon-orange), var(--neon-maroon));
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, var(--neon-maroon), var(--neon-orange));
+        }
+        
+        /* Loading Animation */
+        .loading-ring {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 122, 0, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--neon-orange);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Cosmic Background -->
+    <div class="cosmic-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 futuristic-nav py-4 px-6 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-orange-500 to-red-800 flex items-center justify-center glow-orange overflow-hidden">
+                    <img src="images/logo.png" alt="USAMEC Logo" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <i class="fas fa-om text-white text-xl" style="display: none;"></i>
+                </div>
+                <span class="text-2xl font-bold text-gray-800" style="font-family: 'Orbitron', monospace;">USAMEC</span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-800 hover:text-orange-400 transition-all duration-300 nav-link active">Home</a>
+                <a href="#leadership" class="text-gray-800 hover:text-orange-400 transition-all duration-300 nav-link">Leadership</a>
+                <a href="#mission" class="text-gray-800 hover:text-orange-400 transition-all duration-300 nav-link">Mission</a>
+                <a href="#timeline" class="text-gray-800 hover:text-orange-400 transition-all duration-300 nav-link">History</a>
+                <a href="#institutions" class="text-gray-800 hover:text-orange-400 transition-all duration-300 nav-link">Institutions</a>
+                <a href="#contact" class="text-gray-800 hover:text-orange-400 transition-all duration-300 nav-link">Contact</a>
+            </div>
+            <button class="md:hidden text-gray-800 focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="hero-particles">
+            <!-- Particles will be generated by JavaScript -->
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40"></div>
+        <div class="text-center z-10 px-4 max-w-5xl mx-auto">
+            <h1 class="text-6xl md:text-8xl font-bold mb-8 text-white fade-in" style="text-shadow: 0 0 30px rgba(255, 122, 0, 0.8), 0 0 60px rgba(255, 122, 0, 0.4);">
+                USAMEC
+            </h1>
+            <p class="text-2xl md:text-3xl mb-12 text-gray-200 opacity-90 fade-in" style="text-shadow: 0 2px 10px rgba(255,255,255,0.8);">
+                United Spiritual and Academic Mission for Educational Excellence since 1950
+            </p>
+            <a href="#institutions" class="futuristic-btn text-white text-lg fade-in inline-block">
+                Explore Our Institutions
+            </a>
+        </div>
+        <div class="absolute bottom-10 left-0 right-0 flex justify-center">
+            <a href="#leadership" class="text-gray-800 animate-bounce">
+                <i class="fas fa-chevron-down text-4xl" style="text-shadow: 0 0 20px rgba(255, 122, 0, 0.8);"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Leadership Messages -->
+    <section id="leadership" class="py-20 px-4 max-w-7xl mx-auto">
+        <h2 class="text-5xl font-bold text-center mb-20 fade-in" style="text-shadow: 0 0 20px rgba(255, 122, 0, 0.6);">Divine Leadership</h2>
+        <div class="flex flex-col lg:flex-row gap-12 leadership-cards">
+            <!-- Founder Card -->
+            <div class="flex-1 glass-card p-10 rounded-xl slide-in-left">
+                <div class="flex flex-col md:flex-row items-center mb-8">
+                    <div class="relative mb-8 md:mb-0 md:mr-8">
+                        <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-orange-500 glow-orange">
+                            <img src="https://images.unsplash.com/photo-1604076913837-52ab5629fba9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" 
+                                 alt="Founder Swamiji" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-bold mb-3" style="font-family: 'Orbitron', monospace;">Founder Swamiji</h3>
+                        <p class="text-orange-400 text-lg">Divine Light Matha (1950-1985)</p>
+                    </div>
+                </div>
+                <div class="text-gray-300 mb-8 space-y-4">
+                    <p class="text-lg leading-relaxed">"The true purpose of education is not just to fill the mind with knowledge, but to illuminate the soul with wisdom. Our institutions are temples of learning where young minds blossom with both worldly knowledge and spiritual awakening."</p>
+                    <p class="text-lg leading-relaxed">"Service to humanity is the highest form of worship. Through our educational and spiritual initiatives, we strive to create a society where compassion and knowledge walk hand in hand."</p>
+                </div>
+                <div class="mt-10">
+                    <img src="https://via.placeholder.com/150x50?text=Signature" alt="Signature" class="h-12 opacity-80">
+                </div>
+            </div>
+            
+            <!-- President Card -->
+            <div class="flex-1 glass-card p-10 rounded-xl slide-in-right">
+                <div class="flex flex-col md:flex-row items-center mb-8">
+                    <div class="relative mb-8 md:mb-0 md:mr-8">
+                        <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-maroon-600 glow-maroon">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80" 
+                                 alt="President Swamiji" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-bold mb-3" style="font-family: 'Orbitron', monospace;">President Swamiji</h3>
+                        <p class="text-maroon-300 text-lg">Divine Light Matha (2005-Present)</p>
+                    </div>
+                </div>
+                <div class="text-gray-300 mb-8 space-y-4">
+                    <p class="text-lg leading-relaxed">"In this digital age, our mission remains timeless - to provide education that transforms lives while preserving our spiritual heritage. We are expanding our reach through technology without compromising our core values."</p>
+                    <p class="text-lg leading-relaxed">"The 32 institutions under our care are not just schools and ashrams; they are beacons of hope for thousands. With divine grace, we will continue this sacred work for generations to come."</p>
+                </div>
+                <div class="mt-10">
+                    <img src="https://via.placeholder.com/150x50?text=Signature" alt="Signature" class="h-12 opacity-80">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section id="mission" class="py-20 px-4 bg-gradient-to-b from-gray-900/50 to-black/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl font-bold text-center mb-20 fade-in" style="text-shadow: 0 0 20px rgba(255, 122, 0, 0.6);">Our Guiding Principles</h2>
+            <div class="flex flex-col lg:flex-row gap-12 mission-vision">
+                <!-- Mission -->
+                <div class="flex-1 glass-card p-10 rounded-xl fade-in">
+                    <div class="flex items-center mb-8">
+                        <div class="w-16 h-16 rounded-full bg-orange-500 bg-opacity-20 flex items-center justify-center mr-6 glow-orange">
+                            <i class="fas fa-bullseye text-orange-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold" style="font-family: 'Orbitron', monospace;">Our Mission</h3>
+                    </div>
+                    <div class="space-y-6 text-gray-300">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-orange-500 flex-shrink-0 mt-1 mr-4 flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <p class="text-lg">To provide holistic education that combines academic excellence with spiritual growth.</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-orange-500 flex-shrink-0 mt-1 mr-4 flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <p class="text-lg">To preserve and propagate India's ancient spiritual wisdom through modern educational institutions.</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-orange-500 flex-shrink-0 mt-1 mr-4 flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <p class="text-lg">To serve underprivileged communities through educational and humanitarian initiatives.</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-orange-500 flex-shrink-0 mt-1 mr-4 flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <p class="text-lg">To create leaders who embody both professional competence and spiritual awareness.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vision -->
+                <div class="flex-1 glass-card p-10 rounded-xl fade-in">
+                    <div class="flex items-center mb-8">
+                        <div class="w-16 h-16 rounded-full bg-maroon-600 bg-opacity-20 flex items-center justify-center mr-6 glow-maroon">
+                            <i class="fas fa-eye text-maroon-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold" style="font-family: 'Orbitron', monospace;">Our Vision</h3>
+                    </div>
+                    <div class="space-y-6 text-gray-300">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-maroon-600 flex-shrink-0 mt-1 mr-4 flex items-center justify-center">
+                                <i class="fas fa-star text-white text-sm"></i>
+                            </div>
+                            <p class="text-lg">A world where education enlightens the mind and elevates the spirit.</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-maroon-600 flex-shrink-0 mt-1 mr-4 flex items-center justify-center">
+                                <i class="fas fa-star text-white text-sm"></i>
+                            </div>
+                            <p class="text-lg">A network of 100+ institutions across India by 2040, serving diverse communities.</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-maroon-600 flex-shrink-0 mt-1 mr-4 flex items-center justify-center">
+                                <i class="fas fa-star text-white text-sm"></i>
+                            </div>
+                            <p class="text-lg">To establish a world-class spiritual university blending ancient wisdom with modern research.</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-maroon-600 flex-shrink-0 mt-1 mr-4 flex items-center justify-center">
+                                <i class="fas fa-star text-white text-sm"></i>
+                            </div>
+                            <p class="text-lg">To create self-sustaining communities that embody our spiritual and educational ideals.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Historical Timeline -->
+    <section id="timeline" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl font-bold text-center mb-20 fade-in" style="text-shadow: 0 0 20px rgba(255, 122, 0, 0.6);">Our Sacred Journey</h2>
+            <p class="text-center mb-16 max-w-4xl mx-auto text-gray-300 text-xl fade-in">
+                From humble beginnings in 1950 to a nationwide network of 32+ institutions, our journey has been blessed with divine grace and the dedication of countless souls.
+            </p>
+            
+            <div class="timeline-container relative">
+                <div class="flex overflow-x-auto pb-8 timeline-scroll" style="scrollbar-width: none;">
+                    <div class="flex space-x-16 px-4">
+                        <!-- Timeline Item -->
+                        <div class="flex flex-col items-center timeline-item fade-in" style="min-width: 150px;">
+                            <div class="timeline-marker mb-4"></div>
+                            <div class="text-center">
+                                <div class="text-orange-400 font-bold text-2xl" style="font-family: 'Orbitron', monospace;">1950</div>
+                                <div class="text-lg text-gray-400 mt-2">Foundation</div>
+                            </div>
+                            <div class="absolute top-16 left-1/2 transform -translate-x-1/2 w-1 h-20 bg-gradient-to-b from-orange-500 to-transparent"></div>
+                        </div>
+                        
+                        <!-- Timeline Item -->
+                        <div class="flex flex-col items-center timeline-item fade-in" style="min-width: 150px;">
+                            <div class="timeline-marker mb-4"></div>
+                            <div class="text-center">
+                                <div class="text-orange-400 font-bold text-2xl" style="font-family: 'Orbitron', monospace;">1955</div>
+                                <div class="text-lg text-gray-400 mt-2">First School</div>
+                            </div>
+                            <div class="absolute top-16 left-1/2 transform -translate-x-1/2 w-1 h-20 bg-gradient-to-b from-orange-500 to-transparent"></div>
+                        </div>
+                        
+                        <!-- Timeline Item -->
+                        <div class="flex flex-col items-center timeline-item fade-in" style="min-width: 150px;">
+                            <div class="timeline-marker mb-4"></div>
+                            <div class="text-center">
+                                <div class="text-orange-400 font-bold text-2xl" style="font-family: 'Orbitron', monospace;">1962</div>
+                                <div class="text-lg text-gray-400 mt-2">Ashram Built</div>
+                            </div>
+                            <div class="absolute top-16 left-1/2 transform -translate-x-1/2 w-1 h-20 bg-gradient-to-b from-orange-500 to-transparent"></div>
+                        </div>
+                        
+                        <!-- Timeline Item -->
+                        <div class="flex flex-col items-center timeline-item fade-in" style="min-width: 150px;">
+                            <div class="timeline-marker mb-4"></div>
+                            <div class="text-center">
+                                <div class="text-orange-400 font-bold text-2xl" style="font-family: 'Orbitron', monospace;">1971</div>
+                                <div class="text-lg text-gray-400 mt-2">College</div>
+                            </div>
+                            <div class="absolute top-16 left-1/2 transform -translate-x-1/2 w-1 h-20 bg-gradient-to-b from-orange-500 to-transparent"></div>
+                        </div>
+                        
+                        <!-- Timeline Item -->
+                        <div class="flex flex-col items-center timeline-item fade-in" style="min-width: 150px;">
+                            <div class="timeline-marker mb-4"></div>
+                            <div class="text-center">
+                                <div class="text-orange-400 font-bold text-2xl" style="font-family: 'Orbitron', monospace;">1985</div>
+                                <div class="text-lg text-gray-400 mt-2">New Leadership</div>
+                            </div>
+                            <div class="absolute top-16 left-1/2 transform -translate-x-1/2 w-1 h-20 bg-gradient-to-b from-orange-500 to-transparent"></div>
+                        </div>
+                        
+                        <!-- Timeline Item -->
+                        <div class="flex flex-col items-center timeline-item fade-in" style="min-width: 150px;">
+                            <div class="timeline-marker mb-4"></div>
+                            <div class="text-center">
+                                <div class="text-orange-400 font-bold text-2xl" style="font-family: 'Orbitron', monospace;">1995</div>
+                                <div class="text-lg text-gray-400 mt-2">10 Institutions</div>
+                            </div>
+                            <div class="absolute top-16 left-1/2 transform -translate-x-1/2 w-1 h-20 bg-gradient-to-b from-orange-500 to-transparent"></div>
+                        </div>
+                        
+                        <!-- Timeline Item -->
+                        <div class="flex flex-col items-center timeline-item fade-in" style="min-width: 150px;">
+                            <div class="timeline-marker mb-4"></div>
+                            <div class="text-center">
+                                <div class="text-orange-400 font-bold text-2xl" style="font-family: 'Orbitron', monospace;">2005</div>
+                                <div class="text-lg text-gray-400 mt-2">Current President</div>
+                            </div>
+                            <div class="absolute top-16 left-1/2 transform -translate-x-1/2 w-1 h-20 bg-gradient-to-b from-orange-500 to-transparent"></div>
+                        </div>
+                        
+                        <!-- Timeline Item -->
+                        <div class="flex flex-col items-center timeline-item fade-in" style="min-width: 150px;">
+                            <div class="timeline-marker mb-4"></div>
+                            <div class="text-center">
+                                <div class="text-orange-400 font-bold text-2xl" style="font-family: 'Orbitron', monospace;">2009</div>
+                                <div class="text-lg text-gray-400 mt-2">32 Institutions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timeline Content -->
+                <div class="glass-card p-10 mt-16 fade-in">
+                    <div class="flex flex-col lg:flex-row">
+                        <div class="lg:w-1/3 mb-8 lg:mb-0">
+                            <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" 
+                                 alt="Historical Photo" class="w-full h-64 object-cover rounded-lg">
+                        </div>
+                        <div class="lg:w-2/3 lg:pl-10">
+                            <h3 class="text-3xl font-bold mb-6" style="font-family: 'Orbitron', monospace;">1950: The Humble Beginnings</h3>
+                            <p class="text-gray-300 text-lg leading-relaxed">
+                                Founded by Swamiji in a small village with just a thatched hut and a vision, Divine Light Matha began as a spiritual center offering free education to local children. The first students were taught under a banyan tree, with lessons combining traditional scriptures with modern subjects. This humble beginning laid the foundation for what would become a nationwide network of educational and spiritual institutions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Institutions Hub -->
+    <section id="institutions" class="py-20 px-4 bg-gradient-to-b from-black/50 to-gray-900/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl font-bold text-center mb-8 fade-in" style="text-shadow: 0 0 20px rgba(255, 122, 0, 0.6);">Our Institutions</h2>
+            <p class="text-center mb-16 max-w-4xl mx-auto text-gray-300 text-xl fade-in">
+                32+ institutions across India serving diverse communities through education and spiritual guidance
+            </p>
+            
+            <!-- 3D Roulette Wheel -->
+            <div class="roulette-container fade-in">
+                <div class="roulette-wheel" id="rouletteWheel">
+                    <!-- Gurukul Section -->
+                    <div class="roulette-section" style="background: linear-gradient(135deg, #FF7A00, #ff9500); clip-path: polygon(50% 50%, 100% 0%, 100% 25%);" data-institution="gurukul">
+                        <div class="section-content">
+                            <i class="fas fa-graduation-cap section-icon"></i>
+                            <div class="section-title">Gurukul</div>
+                        </div>
+                    </div>
+                    
+                    <!-- College Section -->
+                    <div class="roulette-section" style="background: linear-gradient(135deg, #800000, #a00000); clip-path: polygon(50% 50%, 100% 25%, 100% 50%);" data-institution="college">
+                        <div class="section-content">
+                            <i class="fas fa-university section-icon"></i>
+                            <div class="section-title">College</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ashram Section -->
+                    <div class="roulette-section" style="background: linear-gradient(135deg, #FF7A00, #800000); clip-path: polygon(50% 50%, 100% 50%, 100% 75%);" data-institution="ashram">
+                        <div class="section-content">
+                            <i class="fas fa-om section-icon"></i>
+                            <div class="section-title">Ashram</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Medical College Section -->
+                    <div class="roulette-section" style="background: linear-gradient(135deg, #800000, #FF7A00); clip-path: polygon(50% 50%, 100% 75%, 100% 100%);" data-institution="medical">
+                        <div class="section-content">
+                            <i class="fas fa-stethoscope section-icon"></i>
+                            <div class="section-title">Medical</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Engineering Section -->
+                    <div class="roulette-section" style="background: linear-gradient(135deg, #FF7A00, #ff6600); clip-path: polygon(50% 50%, 100% 100%, 75% 100%);" data-institution="engineering">
+                        <div class="section-content">
+                            <i class="fas fa-cogs section-icon"></i>
+                            <div class="section-title">Engineering</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Business School Section -->
+                    <div class="roulette-section" style="background: linear-gradient(135deg, #800000, #990000); clip-path: polygon(50% 50%, 75% 100%, 50% 100%);" data-institution="business">
+                        <div class="section-content">
+                            <i class="fas fa-briefcase section-icon"></i>
+                            <div class="section-title">Business</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Research Center Section -->
+                    <div class="roulette-section" style="background: linear-gradient(135deg, #FF7A00, #cc6600); clip-path: polygon(50% 50%, 50% 100%, 25% 100%);" data-institution="research">
+                        <div class="section-content">
+                            <i class="fas fa-microscope section-icon"></i>
+                            <div class="section-title">Research</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Arts College Section -->
+                    <div class="roulette-section" style="background: linear-gradient(135deg, #800000, #b30000); clip-path: polygon(50% 50%, 25% 100%, 0% 100%);" data-institution="arts">
+                        <div class="section-content">
+                            <i class="fas fa-palette section-icon"></i>
+                            <div class="section-title">Arts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16 fade-in">
+                <a href="institutions.html" class="border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 text-lg inline-block">
+                    View All 32 Institutions
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements & Milestones -->
+    <section class="py-20 px-4 bg-gradient-to-r from-orange-900/30 to-maroon-900/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl font-bold text-center mb-20 fade-in" style="text-shadow: 0 0 20px rgba(255, 122, 0, 0.6);">Our Impact</h2>
+            
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- Counter -->
+                <div class="text-center fade-in">
+                    <div class="text-6xl font-bold mb-4 counter" data-target="72">0</div>
+                    <div class="text-xl text-gray-300">Years of Service</div>
+                </div>
+                
+                <!-- Counter -->
+                <div class="text-center fade-in">
+                    <div class="text-6xl font-bold mb-4 counter" data-target="32">0</div>
+                    <div class="text-xl text-gray-300">Institutions</div>
+                </div>
+                
+                <!-- Counter -->
+                <div class="text-center fade-in">
+                    <div class="text-6xl font-bold mb-4 counter" data-target="50000">0</div>
+                    <div class="text-xl text-gray-300">Students Educated</div>
+                </div>
+                
+                <!-- Counter -->
+                <div class="text-center fade-in">
+                    <div class="text-6xl font-bold mb-4 counter" data-target="1000">0</div>
+                    <div class="text-xl text-gray-300">Scholarships Yearly</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alumni Achievements Section -->
+    <section class="py-20 px-4 bg-gradient-to-r from-gray-900/60 to-gray-800/60">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl font-bold text-center mb-8 fade-in" style="text-shadow: 0 0 20px rgba(255, 122, 0, 0.6);">Alumni Achievements</h2>
+            <p class="text-center mb-16 max-w-4xl mx-auto text-gray-200 text-xl fade-in">
+                Celebrating the remarkable accomplishments of our distinguished alumni who continue to inspire future generations
+            </p>
+            <!-- Rotating Achievements Display -->
+            <div class="glass-card p-12 rounded-xl fade-in">
+                <div class="text-center">
+                    <div class="achievement-display mb-8">
+                        <div class="achievement-item active" id="achievement1">
+                            <div class="flex items-center justify-center mb-6">
+                                <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-orange-500 mr-6">
+                                    <img src="images/alumni/rajesh-kumar.jpg" alt="Dr. Rajesh Kumar" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/96x96/FF7A00/FFFFFF?text=Dr.+RK'">
+                                </div>
+                                <div class="text-left">
+                                    <h3 class="text-2xl font-bold text-white mb-2">Dr. Rajesh Kumar</h3>
+                                    <p class="text-lg text-gray-300 mb-1">Divine Light Medical College</p>
+                                    <p class="text-sm text-gray-400">Class of 2018</p>
+                                </div>
+                            </div>
+                            <div class="achievement-text text-center">
+                                <p class="text-xl text-gray-200 leading-relaxed">
+                                    <strong>Achievement:</strong> Became the youngest Chief Medical Officer at AIIMS Delhi at the age of 32, leading a team of 500+ medical professionals and implementing innovative healthcare solutions that improved patient outcomes by 40%.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="achievement-item" id="achievement2">
+                            <div class="flex items-center justify-center mb-6">
+                                <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-orange-500 mr-6">
+                                    <img src="images/alumni/priya-sharma.jpg" alt="Priya Sharma" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/96x96/FF7A00/FFFFFF?text=PS'">
+                                </div>
+                                <div class="text-left">
+                                    <h3 class="text-2xl font-bold text-white mb-2">Priya Sharma</h3>
+                                    <p class="text-lg text-gray-300 mb-1">Divine Light Business School</p>
+                                    <p class="text-sm text-gray-400">Class of 2019</p>
+                                </div>
+                            </div>
+                            <div class="achievement-text text-center">
+                                <p class="text-xl text-gray-200 leading-relaxed">
+                                    <strong>Achievement:</strong> Founded 'EduTech Solutions' - a revolutionary educational technology startup that has been valued at $50M, helping over 100,000 students access quality education through innovative digital platforms.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="achievement-item" id="achievement3">
+                            <div class="flex items-center justify-center mb-6">
+                                <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-orange-500 mr-6">
+                                    <img src="images/alumni/arun-patel.jpg" alt="Arun Patel" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/96x96/FF7A00/FFFFFF?text=AP'">
+                                </div>
+                                <div class="text-left">
+                                    <h3 class="text-2xl font-bold text-white mb-2">Arun Patel</h3>
+                                    <p class="text-lg text-gray-300 mb-1">Divine Light Institute of Technology</p>
+                                    <p class="text-sm text-gray-400">Class of 2020</p>
+                                </div>
+                            </div>
+                            <div class="achievement-text text-center">
+                                <p class="text-xl text-gray-200 leading-relaxed">
+                                    <strong>Achievement:</strong> Developed an AI algorithm that reduced energy consumption in manufacturing by 40%, earning him the prestigious 'Young Innovator of the Year' award from the Indian Institute of Technology.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="achievement-item" id="achievement4">
+                            <div class="flex items-center justify-center mb-6">
+                                <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-orange-500 mr-6">
+                                    <img src="images/alumni/meera-reddy.jpg" alt="Meera Reddy" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/96x96/FF7A00/FFFFFF?text=MR'">
+                                </div>
+                                <div class="text-left">
+                                    <h3 class="text-2xl font-bold text-white mb-2">Meera Reddy</h3>
+                                    <p class="text-lg text-gray-300 mb-1">Divine Light Research Center</p>
+                                    <p class="text-sm text-gray-400">Class of 2017</p>
+                                </div>
+                            </div>
+                            <div class="achievement-text text-center">
+                                <p class="text-xl text-gray-200 leading-relaxed">
+                                    <strong>Achievement:</strong> Published groundbreaking research on sustainable agriculture in the prestigious Nature journal, leading to the development of eco-friendly farming techniques adopted by 50+ countries worldwide.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="achievement-item" id="achievement5">
+                            <div class="flex items-center justify-center mb-6">
+                                <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-orange-500 mr-6">
+                                    <img src="images/alumni/vikram-singh.jpg" alt="Vikram Singh" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/96x96/FF7A00/FFFFFF?text=VS'">
+                                </div>
+                                <div class="text-left">
+                                    <h3 class="text-2xl font-bold text-white mb-2">Vikram Singh</h3>
+                                    <p class="text-lg text-gray-300 mb-1">Divine Light Institute of Technology</p>
+                                    <p class="text-sm text-gray-400">Class of 2016</p>
+                                </div>
+                            </div>
+                            <div class="achievement-text text-center">
+                                <p class="text-xl text-gray-200 leading-relaxed">
+                                    <strong>Achievement:</strong> Appointed as Senior Vice President at Google India, leading the company's AI and machine learning initiatives, and mentoring over 200 engineers while driving innovation in emerging technologies.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Achievement Navigation Dots -->
+                    <div class="flex justify-center space-x-3 mb-8">
+                        <button class="achievement-dot w-3 h-3 rounded-full bg-orange-500 transition-all duration-300 border border-white" data-achievement="1"></button>
+                        <button class="achievement-dot w-3 h-3 rounded-full bg-gray-700 transition-all duration-300 border border-white" data-achievement="2"></button>
+                        <button class="achievement-dot w-3 h-3 rounded-full bg-gray-700 transition-all duration-300 border border-white" data-achievement="3"></button>
+                        <button class="achievement-dot w-3 h-3 rounded-full bg-gray-700 transition-all duration-300 border border-white" data-achievement="4"></button>
+                        <button class="achievement-dot w-3 h-3 rounded-full bg-gray-700 transition-all duration-300 border border-white" data-achievement="5"></button>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-gray-300 text-lg mb-4">Our alumni network spans across 30+ countries with achievements in:</p>
+                        <div class="flex flex-wrap justify-center gap-4 text-sm">
+                            <span class="px-4 py-2 bg-orange-900 text-orange-200 rounded-full">Technology</span>
+                            <span class="px-4 py-2 bg-red-900 text-red-200 rounded-full">Medicine</span>
+                            <span class="px-4 py-2 bg-blue-900 text-blue-200 rounded-full">Business</span>
+                            <span class="px-4 py-2 bg-green-900 text-green-200 rounded-full">Research</span>
+                            <span class="px-4 py-2 bg-purple-900 text-purple-200 rounded-full">Arts</span>
+                            <span class="px-4 py-2 bg-yellow-900 text-yellow-200 rounded-full">Education</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Map -->
+    <section class="py-20 px-4 bg-gradient-to-b from-gray-900/50 to-black/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl font-bold text-center mb-8 fade-in" style="text-shadow: 0 0 20px rgba(255, 122, 0, 0.6);">Our Presence Across India</h2>
+            <p class="text-center mb-16 max-w-4xl mx-auto text-gray-300 text-xl fade-in">
+                32 institutions serving communities in 12 states
+            </p>
+            
+            <div class="glass-card p-8 rounded-xl fade-in">
+                <div class="relative h-96">
+                    <!-- Simplified India Map with Pins -->
+                    <div class="absolute inset-0 bg-gray-800/50 rounded-lg flex items-center justify-center backdrop-blur-sm">
+                        <div class="relative w-full h-full">
+                            <!-- This would be replaced with an actual SVG map in production -->
+                            <div class="absolute" style="top: 20%; left: 30%;">
+                                <div class="map-pin" data-institution="Divine Light Gurukul"></div>
+                            </div>
+                            <div class="absolute" style="top: 40%; left: 50%;">
+                                <div class="map-pin" data-institution="Divine Light College"></div>
+                            </div>
+                            <div class="absolute" style="top: 30%; left: 70%;">
+                                <div class="map-pin" data-institution="Divine Light Ashram"></div>
+                            </div>
+                            <!-- More pins would be added for all institutions -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card p-6 rounded-lg">
+                        <h3 class="text-orange-400 font-semibold text-xl mb-2" style="font-family: 'Orbitron', monospace;">Northern Region</h3>
+                        <p class="text-gray-300">8 institutions across Uttar Pradesh, Uttarakhand, Delhi</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-lg">
+                        <h3 class="text-orange-400 font-semibold text-xl mb-2" style="font-family: 'Orbitron', monospace;">Southern Region</h3>
+                        <p class="text-gray-300">12 institutions across Karnataka, Tamil Nadu, Kerala</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-lg">
+                        <h3 class="text-orange-400 font-semibold text-xl mb-2" style="font-family: 'Orbitron', monospace;">Western Region</h3>
+                        <p class="text-gray-300">6 institutions across Maharashtra, Gujarat</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 bg-black/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl font-bold text-center mb-20 fade-in" style="text-shadow: 0 0 20px rgba(255, 122, 0, 0.6);">Connect With Us</h2>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <!-- Contact Form -->
+                <div class="lg:w-1/2 glass-card p-10 rounded-xl fade-in">
+                    <h3 class="text-3xl font-bold mb-8" style="font-family: 'Orbitron', monospace;">Send Your Message</h3>
+                    <form>
+                        <div class="mb-8">
+                            <label for="name" class="block text-gray-300 mb-3 text-lg">Your Name</label>
+                            <input type="text" id="name" class="w-full futuristic-input">
+                        </div>
+                        <div class="mb-8">
+                            <label for="email" class="block text-gray-300 mb-3 text-lg">Email Address</label>
+                            <input type="email" id="email" class="w-full futuristic-input">
+                        </div>
+                        <div class="mb-8">
+                            <label for="message" class="block text-gray-300 mb-3 text-lg">Your Message</label>
+                            <textarea id="message" rows="5" class="w-full futuristic-input"></textarea>
+                        </div>
+                        <button type="submit" class="futuristic-btn w-full text-white text-lg">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="lg:w-1/2 glass-card p-10 rounded-xl fade-in">
+                    <h3 class="text-3xl font-bold mb-8" style="font-family: 'Orbitron', monospace;">Contact Information</h3>
+                    
+                    <div class="space-y-8">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full bg-orange-500 bg-opacity-20 flex items-center justify-center mr-6 mt-1 glow-orange">
+                                <i class="fas fa-map-marker-alt text-orange-500 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-xl mb-2">Headquarters</h4>
+                                <p class="text-gray-400 text-lg">Divine Light Matha,<br>Gurukul Road, Varanasi,<br>Uttar Pradesh - 221005, India</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full bg-orange-500 bg-opacity-20 flex items-center justify-center mr-6 mt-1 glow-orange">
+                                <i class="fas fa-phone-alt text-orange-500 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-xl mb-2">Phone</h4>
+                                <p class="text-gray-400 text-lg">+91 542 1234567<br>+91 98765 43210</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full bg-orange-500 bg-opacity-20 flex items-center justify-center mr-6 mt-1 glow-orange">
+                                <i class="fas fa-envelope text-orange-500 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-xl mb-2">Email</h4>
+                                <p class="text-gray-400 text-lg">contact@divinelightmatha.org<br>info@divinelightmatha.org</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12">
+                        <h4 class="font-semibold text-xl mb-6">Follow Us</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-12 h-12 rounded-full bg-gray-800 hover:bg-orange-500 flex items-center justify-center transition-all duration-300 hover:scale-110">
+                                <i class="fab fa-facebook-f text-white text-xl"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 rounded-full bg-gray-800 hover:bg-orange-500 flex items-center justify-center transition-all duration-300 hover:scale-110">
+                                <i class="fab fa-twitter text-white text-xl"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 rounded-full bg-gray-800 hover:bg-orange-500 flex items-center justify-center transition-all duration-300 hover:scale-110">
+                                <i class="fab fa-instagram text-white text-xl"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 rounded-full bg-gray-800 hover:bg-orange-500 flex items-center justify-center transition-all duration-300 hover:scale-110">
+                                <i class="fab fa-youtube text-white text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12 h-56 rounded-lg overflow-hidden">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28821.034558728!2d82.9739144!3d25.3176452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398e2db76febcf4d%3A0x68131710053abb2!2sVaranasi%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1689154288565!5m2!1sen!2sin" 
+                                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 px-4 bg-gray-900/80">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row justify-between items-start">
+                <div class="mb-10 lg:mb-0">
+                                    <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-orange-500 to-red-800 flex items-center justify-center glow-orange overflow-hidden">
+                        <img src="images/logo.png" alt="USAMEC Logo" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <i class="fas fa-om text-white text-2xl" style="display: none;"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-white" style="font-family: 'Orbitron', monospace;">USAMEC</span>
+                </div>
+                <p class="text-gray-400 max-w-md text-lg">United Spiritual and Academic Mission for Educational Excellence since 1950.</p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-12">
+                    <div>
+                        <h4 class="text-white font-semibold mb-6 text-xl" style="font-family: 'Orbitron', monospace;">Quick Links</h4>
+                        <ul class="space-y-3">
+                            <li><a href="#" class="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-lg">Home</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-lg">About Us</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-lg">Institutions</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-lg">Donate</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-white font-semibold mb-6 text-xl" style="font-family: 'Orbitron', monospace;">Resources</h4>
+                        <ul class="space-y-3">
+                            <li><a href="#" class="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-lg">Publications</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-lg">Media</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-lg">Blog</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-lg">FAQs</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-white font-semibold mb-6 text-xl" style="font-family: 'Orbitron', monospace;">Legal</h4>
+                        <ul class="space-y-3">
+                            <li><a href="#" class="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-lg">Privacy Policy</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-lg">Terms of Service</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-orange-400 transition-colors duration-300 text-lg">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-16 pt-10 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 mb-6 md:mb-0 text-lg">© 2023 USAMEC. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-orange-400 transition-colors duration-300 text-xl"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-orange-400 transition-colors duration-300 text-xl"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-orange-400 transition-colors duration-300 text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-orange-400 transition-colors duration-300 text-xl"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Institution Modal -->
+    <div class="institution-modal" id="institutionModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <div class="modal-icon" id="modalIcon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3 class="modal-title" id="modalTitle">Institution Name</h3>
+                <p class="modal-subtitle" id="modalSubtitle">Established: Year | Location</p>
+            </div>
+            <div class="modal-body">
+                <p id="modalDescription">Institution description goes here...</p>
+                <h4 class="text-xl font-bold mb-3 mt-6">Programs Offered:</h4>
+                <div class="programs-list" id="programsList">
+                    <!-- Programs will be populated dynamically -->
+                </div>
+            </div>
+            <div class="modal-actions">
+                <a href="#" class="modal-btn primary" id="websiteBtn">
+                    <i class="fas fa-globe"></i>
+                    Visit Website
+                </a>
+                <button class="modal-btn secondary" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Institution data
+            const institutions = {
+                gurukul: {
+                    name: "Divine Light Gurukul",
+                    subtitle: "Established: 1955 | Varanasi, UP",
+                    icon: "fas fa-graduation-cap",
+                    description: "Our first residential school combining modern education with traditional gurukul values. Offers CBSE curriculum with special emphasis on Sanskrit and Indian philosophy. Students live on campus and receive holistic education that nurtures both intellectual and spiritual growth.",
+                    programs: ["CBSE Curriculum", "Sanskrit Studies", "Vedic Mathematics", "Yoga & Meditation", "Indian Philosophy", "Modern Sciences"],
+                    website: "https://divinelightgurukul.edu.in",
+                    hasWebsite: true
+                },
+                college: {
+                    name: "Divine Light College",
+                    subtitle: "Established: 1971 | Bangalore, KA",
+                    icon: "fas fa-university",
+                    description: "Premier degree college offering Arts, Science and Commerce programs with value-added courses in meditation and yoga. NAAC 'A' Grade accredited institution with modern facilities and experienced faculty.",
+                    programs: ["Bachelor of Arts", "Bachelor of Science", "Bachelor of Commerce", "Master of Arts", "Master of Science", "Diploma Courses"],
+                    website: null,
+                    hasWebsite: false
+                },
+                ashram: {
+                    name: "Divine Light Ashram",
+                    subtitle: "Established: 1962 | Rishikesh, UK",
+                    icon: "fas fa-om",
+                    description: "Spiritual retreat center offering courses in meditation, yoga and vedic studies. Hosts annual international spiritual conference attracting seekers worldwide. Peaceful environment for spiritual practice and learning.",
+                    programs: ["Meditation Courses", "Yoga Teacher Training", "Vedic Studies", "Spiritual Retreats", "Ayurveda Workshops", "Pranayama Classes"],
+                    website: "https://divinelightashram.org",
+                    hasWebsite: true
+                },
+                medical: {
+                    name: "Divine Light Medical College",
+                    subtitle: "Established: 1995 | Chennai, TN",
+                    icon: "fas fa-stethoscope",
+                    description: "State-of-the-art medical college with modern facilities and experienced faculty. Affiliated with top medical universities and equipped with advanced laboratories and teaching hospitals.",
+                    programs: ["MBBS", "MD/MS", "Nursing", "Pharmacy", "Physiotherapy", "Medical Laboratory Technology"],
+                    website: null,
+                    hasWebsite: false
+                },
+                engineering: {
+                    name: "Divine Light Institute of Technology",
+                    subtitle: "Established: 2001 | Pune, MH",
+                    icon: "fas fa-cogs",
+                    description: "Leading engineering institute offering undergraduate and postgraduate programs in various engineering disciplines. Strong industry connections and excellent placement record.",
+                    programs: ["Computer Science", "Mechanical Engineering", "Electrical Engineering", "Civil Engineering", "Electronics & Communication", "Information Technology"],
+                    website: null,
+                    hasWebsite: false
+                },
+                business: {
+                    name: "Divine Light Business School",
+                    subtitle: "Established: 2005 | Mumbai, MH",
+                    icon: "fas fa-briefcase",
+                    description: "Premier business school offering MBA and executive programs. Focus on ethical business practices and spiritual leadership. Strong alumni network and industry partnerships.",
+                    programs: ["MBA", "Executive MBA", "PGDM", "Certificate Courses", "Leadership Programs", "Entrepreneurship Development"],
+                    website: "https://divinelightbschool.edu.in",
+                    hasWebsite: true
+                },
+                research: {
+                    name: "Divine Light Research Center",
+                    subtitle: "Established: 2010 | Hyderabad, TS",
+                    icon: "fas fa-microscope",
+                    description: "Advanced research facility focusing on interdisciplinary studies combining modern science with ancient wisdom. Conducts research in various fields including consciousness studies and sustainable technologies.",
+                    programs: ["PhD Programs", "Research Fellowships", "Consciousness Studies", "Sustainable Technology", "Ancient Wisdom Research", "Publication Support"],
+                    website: null,
+                    hasWebsite: false
+                },
+                arts: {
+                    name: "Divine Light College of Arts",
+                    subtitle: "Established: 1988 | Jaipur, RJ",
+                    icon: "fas fa-palette",
+                    description: "Dedicated arts college promoting traditional and contemporary art forms. Offers comprehensive programs in visual arts, performing arts, and cultural studies with emphasis on Indian heritage.",
+                    programs: ["Fine Arts", "Performing Arts", "Music", "Dance", "Sculpture", "Cultural Studies"],
+                    website: null,
+                    hasWebsite: false
+                }
+            };
+            
+            // Roulette wheel functionality
+            const rouletteWheel = document.getElementById('rouletteWheel');
+                // Pause the rotation animation
+                document.querySelector('.roulette-wheel').style.animationPlayState = 'paused';
+                
+            const modal = document.getElementById('institutionModal');
+            const rouletteSections = document.querySelectorAll('.roulette-section');
+            
+            // Add click event to each section
+            rouletteSections.forEach(section => {
+                section.addEventListener('click', function() {
+                    const institutionKey = this.getAttribute('data-institution');
+                    const institution = institutions[institutionKey];
+                    
+                    if (institution) {
+                        openModal(institution);
+                    }
+                });
+            });
+            
+            // Modal functions
+            window.openModal = function(institution) {
+                const modal = document.getElementById('institutionModal');
+                const modalIcon = document.getElementById('modalIcon');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalSubtitle = document.getElementById('modalSubtitle');
+                const modalDescription = document.getElementById('modalDescription');
+                const programsList = document.getElementById('programsList');
+                const websiteBtn = document.getElementById('websiteBtn');
+                
+                // Update modal content
+                modalIcon.innerHTML = `<i class="${institution.icon}"></i>`;
+                modalTitle.textContent = institution.name;
+                modalSubtitle.textContent = institution.subtitle;
+                modalDescription.textContent = institution.description;
+                
+                // Update programs list
+                programsList.innerHTML = '';
+                institution.programs.forEach(program => {
+                    const programItem = document.createElement('div');
+                    programItem.className = 'program-item';
+                    programItem.textContent = program;
+                    programsList.appendChild(programItem);
+                });
+                
+                // Update website button
+                if (institution.hasWebsite) {
+                    websiteBtn.href = institution.website;
+                    websiteBtn.className = 'modal-btn primary';
+                    websiteBtn.innerHTML = '<i class="fas fa-globe"></i> Visit Website';
+                } else {
+                    websiteBtn.href = '#';
+                    websiteBtn.className = 'modal-btn primary coming-soon';
+                    websiteBtn.innerHTML = '<i class="fas fa-clock"></i> Coming Soon';
+                }
+                
+                // Show modal
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+            
+            window.closeModal = function() {
+                const modal = document.getElementById('institutionModal');
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                // Resume the rotation animation
+                document.querySelector('.roulette-wheel').style.animationPlayState = 'running';
+            };
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            });
+            
+            // Create floating particles for hero section
+            function createParticles() {
+                const particlesContainer = document.querySelector('.hero-particles');
+                const particleCount = 50;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 6 + 's';
+                    particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            
+            createParticles();
+            
+            // Enhanced scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all animated elements
+            document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Enhanced counter animation with easing
+            function animateCounters() {
+                const counters = document.querySelectorAll('.counter');
+                
+                counters.forEach(counter => {
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    const duration = 2000; // 2 seconds
+                    const start = performance.now();
+                    
+                    function updateCounter(currentTime) {
+                        const elapsed = currentTime - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        
+                        // Easing function (ease-out)
+                        const easeOut = 1 - Math.pow(1 - progress, 3);
+                        const current = Math.floor(target * easeOut);
+                        
+                        counter.textContent = current.toLocaleString();
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target.toLocaleString();
+                        }
+                    }
+                    
+                    requestAnimationFrame(updateCounter);
+                });
+            }
+            
+            // Start counters when section is visible
+            const counterSection = document.querySelector('.bg-gradient-to-r');
+            const counterObserver = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    animateCounters();
+                    counterObserver.unobserve(entries[0].target);
+                }
+            });
+            
+            if (counterSection) {
+                counterObserver.observe(counterSection);
+            }
+            
+            // Enhanced smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const offsetTop = targetElement.offsetTop - 100;
+                        
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Update active nav link
+                        updateActiveNavLink(targetId);
+                    }
+                });
+            });
+            
+            function updateActiveNavLink(activeId) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === activeId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            // Enhanced scroll-based nav highlighting
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            function highlightNavOnScroll() {
+                const scrollPos = window.scrollY + 150;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+            
+            // Throttled scroll event
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
+                scrollTimeout = setTimeout(highlightNavOnScroll, 10);
+            });
+            
+            // Enhanced map pin interactions
+            document.querySelectorAll('.map-pin').forEach(pin => {
+                pin.addEventListener('mouseenter', function() {
+                    const institutionName = this.getAttribute('data-institution');
+                    // Create tooltip (simplified for demo)
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'absolute bg-black text-white p-2 rounded text-sm z-10';
+                    tooltip.style.bottom = '30px';
+                    tooltip.style.left = '50%';
+                    tooltip.style.transform = 'translateX(-50%)';
+                    tooltip.textContent = institutionName;
+                    this.appendChild(tooltip);
+                });
+                
+                pin.addEventListener('mouseleave', function() {
+                    const tooltip = this.querySelector('div');
+                    if (tooltip) {
+                        tooltip.remove();
+                    }
+                });
+            });
+            
+            // Form enhancements
+            document.querySelectorAll('.futuristic-input').forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.transform = 'scale(1.02)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+            
+            // Timeline animation on scroll
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const timelineObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            timelineItems.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'all 0.6s ease';
+                timelineObserver.observe(item);
+            });
+            
+            // Alumni Achievements Rotation
+            let currentAchievement = 1;
+            const totalAchievements = 5;
+            
+            function rotateAchievements() {
+                // Hide current achievement
+                document.getElementById(`achievement${currentAchievement}`).classList.remove('active');
+                
+                // Update dot
+                document.querySelector(`[data-achievement="${currentAchievement}"]`).classList.remove('bg-orange-500');
+                document.querySelector(`[data-achievement="${currentAchievement}"]`).classList.add('bg-gray-300');
+                
+                // Move to next achievement
+                currentAchievement = currentAchievement % totalAchievements + 1;
+                
+                // Show new achievement
+                document.getElementById(`achievement${currentAchievement}`).classList.add('active');
+                
+                // Update dot
+                document.querySelector(`[data-achievement="${currentAchievement}"]`).classList.remove('bg-gray-300');
+                document.querySelector(`[data-achievement="${currentAchievement}"]`).classList.add('bg-orange-500');
+            }
+            
+            // Auto-rotate achievements every 4 seconds
+            setInterval(rotateAchievements, 4000);
+            
+            // Manual navigation with dots
+            document.querySelectorAll('.achievement-dot').forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const achievementNumber = parseInt(this.getAttribute('data-achievement'));
+                    
+                    // Hide current achievement
+                    document.getElementById(`achievement${currentAchievement}`).classList.remove('active');
+                    document.querySelector(`[data-achievement="${currentAchievement}"]`).classList.remove('bg-orange-500');
+                    document.querySelector(`[data-achievement="${currentAchievement}"]`).classList.add('bg-gray-300');
+                    
+                    // Show selected achievement
+                    currentAchievement = achievementNumber;
+                    document.getElementById(`achievement${currentAchievement}`).classList.add('active');
+                    this.classList.remove('bg-gray-300');
+                    this.classList.add('bg-orange-500');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

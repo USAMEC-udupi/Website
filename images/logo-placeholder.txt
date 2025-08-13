@@ -1,0 +1,18 @@
+LOGO PLACEHOLDER
+
+Please place your logo image file here with one of these names:
+- logo.png
+- logo.jpg
+- logo.svg
+- logo.webp
+
+The logo will be automatically displayed in:
+1. Navigation bar
+2. Browser tab (favicon)
+3. Loading page
+4. Footer
+
+Recommended logo dimensions:
+- Navigation: 48x48px or larger
+- Favicon: 32x32px or 16x16px
+- High resolution: 512x512px for various uses
